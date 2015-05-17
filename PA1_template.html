@@ -656,7 +656,7 @@ newdailytotalsteps_median
 <p>For this part the weekdays() function may be of some help here. Use the dataset with the filled-in missing values for this part.</p>
 
 <ol>
-<li>Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.</li>
+<li>Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day</li>
 </ol>
 
 <pre><code class="r">newactivity_dayoftheweek &lt;- transform(newactivity_ordered, dayoftheweek = weekdays(date))
