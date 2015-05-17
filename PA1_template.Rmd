@@ -1,7 +1,7 @@
 ---
 title: "Daily Activity Analysis"
 author: "Christina"
-date: "March 11, 2015"
+date: "May 17, 2015"
 output: html_document
 ---
 ##Introduction
@@ -34,11 +34,6 @@ knitr::opts_chunk$set(echo = TRUE)
 Show any code that is needed to
 
 1. Load the data (i.e. read.csv()): Make sure the data is saved in your local directory.  
-```{r echo=FALSE}
-wd <- "/Users/cbeauchamp/Documents/R Practice/Reproducible Research/PA 1"
-currentwd <- getwd()
-if (wd != currentwd) setwd(wd)
-```
 
 ```{r}
 file <- "activity.csv"
@@ -57,7 +52,7 @@ For this part of the assignment, you can ignore the missing values in the datase
 
 1. Calculate the total number of steps taken per day
 ```{r,message=FALSE}
-library(dplyr)
+library(dplyr) 
 library(knitr)
 
 activity_sub <- activity[complete.cases(activity[,1]),1:2]
@@ -101,6 +96,13 @@ plot(intervalsteps_avg_plot$interval,
 ```  
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+```{r}
+maxsteps <- max(intervalsteps_avg_format$avgsteps)
+maxinterval <- intervalsteps_avg_format[intervalsteps_avg_format$avgsteps == maxsteps, "interval"]
+maxinterval
+```
+
+The invteral with the most number of steps on average is `r maxinterval` with `r maxsteps` number of steps.
 
 ##Imputing missing values
 
@@ -161,7 +163,7 @@ newactivity_dayoftheweek_format <- transform(newactivity_dayoftheweek_avg, inter
 newactivity_dayoftheweek_plot <- transform(newactivity_dayoftheweek_format,interval = strptime(newactivity_dayoftheweek_format$interval, "%H%M"))
 
 library(ggplot2)
-library(scales)
+library(scales) 
 ggplot(data=newactivity_dayoftheweek_plot, aes(x=interval, y=avgsteps)) +  geom_line()  + 
       facet_grid(daytype ~ .) +
       labs(title="Weekend vs. Weekday Average Number of Steps by Interval") +

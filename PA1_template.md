@@ -1,7 +1,7 @@
 ---
 title: "Daily Activity Analysis"
 author: "Christina"
-date: "March 11, 2015"
+date: "May 17, 2015"
 output: html_document
 ---
 ##Introduction
@@ -37,19 +37,9 @@ Show any code that is needed to
 1. Load the data (i.e. read.csv()): Make sure the data is saved in your local directory.  
 
 
-
 ```r
 file <- "activity.csv"
 activity <- read.csv(file, na.strings = NA)
-```
-
-```
-## Warning in file(file, "rt"): cannot open file 'activity.csv': No such file
-## or directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
 ```
 
 2. Process/transform the data (if necessary) into a format suitable for your analysis 
@@ -66,7 +56,7 @@ For this part of the assignment, you can ignore the missing values in the datase
 1. Calculate the total number of steps taken per day
 
 ```r
-library(dplyr)
+library(dplyr) 
 library(knitr)
 
 activity_sub <- activity[complete.cases(activity[,1]),1:2]
@@ -141,7 +131,7 @@ hist(dailytotalsteps$totalsteps,
      main = 'Histogram of Daily Total of Steps Per Day')
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
 3. Calculate and report the mean and median of the total number of steps taken per day
 
@@ -182,9 +172,21 @@ plot(intervalsteps_avg_plot$interval,
      sub = "Analysis Time Period: October and November of 2012")
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+
+```r
+maxsteps <- max(intervalsteps_avg_format$avgsteps)
+maxinterval <- intervalsteps_avg_format[intervalsteps_avg_format$avgsteps == maxsteps, "interval"]
+maxinterval
+```
+
+```
+## [1] "0835"
+```
+
+The invteral with the most number of steps on average is 0835 with 206.1698113 number of steps.
 
 ##Imputing missing values
 
@@ -280,7 +282,7 @@ newactivity_dayoftheweek_format <- transform(newactivity_dayoftheweek_avg, inter
 newactivity_dayoftheweek_plot <- transform(newactivity_dayoftheweek_format,interval = strptime(newactivity_dayoftheweek_format$interval, "%H%M"))
 
 library(ggplot2)
-library(scales)
+library(scales) 
 ggplot(data=newactivity_dayoftheweek_plot, aes(x=interval, y=avgsteps)) +  geom_line()  + 
       facet_grid(daytype ~ .) +
       labs(title="Weekend vs. Weekday Average Number of Steps by Interval") +
